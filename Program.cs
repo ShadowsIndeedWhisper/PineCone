@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Threading;
 
@@ -15,6 +15,9 @@ class Program
         Console.ResetColor();
 
         List<string> commands = new List<string>();
+        bool condition = true;
+
+
 
         while (true)
         {
@@ -32,6 +35,8 @@ class Program
                 Console.WriteLine("- Run: Runs the previously entered commands in order.");
                 Console.WriteLine("- Wait(n): Waits for n seconds before executing the next command.");
                 Console.WriteLine("- End: Ends the program.");
+                Console.WriteLine("- True / False: Sets The Global Value To True / False.");
+                Console.WriteLine("- Endif True / False: Ends If The Global Value Is True / False");
                 Console.WriteLine("- Help: Opens the help menu.");
                 Console.ForegroundColor = ConsoleColor.DarkMagenta;
                 Console.WriteLine("- Notice: When You Recieve An Error, You Must Restart The Program.");
@@ -91,6 +96,32 @@ class Program
                                 Console.ResetColor();
                             }
                         }
+
+                        //
+                        else if (command.Equals("true", StringComparison.OrdinalIgnoreCase))
+                        {
+                            condition = true;
+                        }
+                        else if (command.Equals("false", StringComparison.OrdinalIgnoreCase))
+                        {
+                            condition = false;
+                        }
+                        else if (command.StartsWith("endif true", StringComparison.OrdinalIgnoreCase))
+                        {
+                            if (condition)
+                            {
+                                Environment.Exit(0); // End the program
+                            }
+                        }
+                        else if (command.StartsWith("endif false", StringComparison.OrdinalIgnoreCase))
+                        {
+                            if (!condition)
+                            {
+                                Environment.Exit(0); // End the program
+                            }
+                        }
+                        //
+
                         else if (command.Equals("end", StringComparison.OrdinalIgnoreCase))
                         {
                             Environment.Exit(0); // End the program
